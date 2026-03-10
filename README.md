@@ -19,6 +19,10 @@ This project implements a reconciliation process that extracts invoice data from
 
 ## Quick Start
 
+Prerequisites:
+- Python 3.14
+- optional: `uv` (Universal Virtualenv) for managing the virtual environment ref: https://docs.astral.sh/uv/getting-started/
+
 1. Clone the repository
     ```bash
     git clone
@@ -31,27 +35,30 @@ This project implements a reconciliation process that extracts invoice data from
     ```bash
     python main.py
     ```
+    or 
+    ```bash
+    uv run python main.py
+    ```
 
 ## Setup and Execution Tests
 
+Prerequisites:
+- Python 3.14
+- `uv` (Universal Virtualenv) for managing the virtual environment ref: https://docs.astral.sh/uv/getting-started/
+
 1. Install virtual environment
     ```bash
-    python -m venv venv
-    source venv/bin/activate  # On Windows: venv\Scripts\activate
+    uv sync
     ```
 
-2. Install dependencies
-    ```bash
-    pip install -r requirements.txt
-    ```
-3. Run tests
+2. Run tests
     Execute all tests in the `tests/` directory.
     ```bash
-    pytest tests/
+    uv run pytest tests/
     ```
 
-4. Run tests with coverage report
+3. Run tests with coverage report
    Run tests and generate a terminal report showing coverage for `main.py` and the `external_resources` package.
     ```bash
-    pytest tests/ --cov=main --cov=external_resources --cov-report=term-missing
+    uv run pytest tests/ --cov=main --cov=external_resources --cov-report=term-missing
     ```
