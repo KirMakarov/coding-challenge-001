@@ -19,11 +19,6 @@ class Reconciliation:
         invoices = self._fetch_invoices()
         return self._match_transactions_and_invoices(transactions, invoices)
 
-    def generate_and_print_report(self) -> None:
-        """Generates a reconciliation report and prints it."""
-        report = self.generate_report()
-        report.print_report()
-
     def _fetch_bank_transactions(self) -> Iterator[Transaction]:
         return self.bank_api_client.fetch_transactions()
 
