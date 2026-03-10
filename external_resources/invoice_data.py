@@ -44,6 +44,7 @@ def is_valid_invoice_row(row: dict[str, str | None]) -> bool:
 def extract_invoice_data(
     source: Path | None = None,
 ) -> Generator[Invoice, None, None]:
+    """Extracts invoice data from a CSV file and yields Invoice instances."""
     if source is None:
         source = INVOICE_DATA_CSV_PATH
 

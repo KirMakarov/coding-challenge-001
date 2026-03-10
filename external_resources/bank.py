@@ -39,6 +39,7 @@ class Transaction:
 
 
 class BankAPIClient:
+    """Client for interacting with the bank API to fetch transactions."""
     _max_retry_attempts: int = 10
     _max_delay_seconds: int = 5
     _token: Iterator[str] | None = None

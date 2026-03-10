@@ -6,17 +6,21 @@ from external_resources.reconciliation_report import ReconciliationReport
 
 
 class Reconciliation:
+    """Reconciliation engine that matches bank transactions with invoices to generate a reconciliation report."""
+
     _inv_number_prefix = "INV-"
 
     def __init__(self):
         self.bank_api_client = BankAPIClient()
 
     def generate_report(self) -> ReconciliationReport:
+        """Generates a reconciliation report by matching bank transactions with invoices."""
         transactions = self._fetch_bank_transactions()
         invoices = self._fetch_invoices()
         return self._match_transactions_and_invoices(transactions, invoices)
 
     def generate_and_print_report(self) -> None:
+        """Generates a reconciliation report and prints it."""
         report = self.generate_report()
         report.print_report()
 
