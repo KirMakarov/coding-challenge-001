@@ -63,29 +63,8 @@ def test_extract_invoice_data_invalid_columns(mocker):
 def test_extract_invoice_data_should_skip_invalid_row(mocker, csv_content):
     mocker.patch("external_resources.invoice_data.Path.exists", return_value=True)
     mocker.patch("builtins.open", mocker.mock_open(read_data=csv_content))
-    mocker.patch("builtins.open", mocker.mock_open(read_data=csv_content))
 
     invoices = list(extract_invoice_data(Path("invalid_row.csv")))
 
     assert len(invoices) == 1
     assert invoices[0].invoice_number == "INV-002"
-
-
-# def test_extract_invoice_data_invalid_amount(mocker):
-#     mocker.patch("external_resources.invoice_data.Path.exists", return_value=True)
-#     csv_content = (
-#         "invoice_number,total_amount,due_date\nINV-001,invalid_amount,2026-01-01\n"
-#     )
-#     mocker.patch("builtins.open", mocker.mock_open(read_data=csv_content))
-
-#     with pytest.raises(ValueError):
-#         list(extract_invoice_data(Path("invalid_amount.csv")))
-
-
-# def test_extract_invoice_data_invalid_date(mocker):
-#     mocker.patch("external_resources.invoice_data.Path.exists", return_value=True)
-#     csv_content = "invoice_number,total_amount,due_date\nINV-001,100.00,invalid_date\n"
-#     mocker.patch("builtins.open", mocker.mock_open(read_data=csv_content))
-
-#     with pytest.raises(ValueError):
-#         list(extract_invoice_data(Path("invalid_date.csv")))

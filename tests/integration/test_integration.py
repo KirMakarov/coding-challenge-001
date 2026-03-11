@@ -60,11 +60,6 @@ def mock_bank_api_server(mocker):
             MockHttpResponse(status_code=200, data=transactions),
         ],
     )
-    # mock_server_inst = mock_server_class.return_value
-    # mock_server_inst.get_transactions.side_effect = [
-    #     MockHttpResponse(status_code=500),
-    #     MockHttpResponse(status_code=200, data=transactions),
-    # ]
 
     return server
 
