@@ -2,9 +2,9 @@ from datetime import date
 from decimal import Decimal
 
 import pytest
-from external_resources.bank import Transaction
+from external_resources.bank import BankAPIClient, Transaction
 from external_resources.invoice_data import Invoice
-from main import Reconciliation
+from reconciliation import Reconciliation
 
 
 @pytest.mark.parametrize(
@@ -39,11 +39,15 @@ from main import Reconciliation
     ],
 )
 def test_generate_report_matching_logic(mocker, transaction, invoice):
-    reconciliation = Reconciliation()
     mocker.patch.object(
-        reconciliation, "_fetch_bank_transactions", return_value=iter([transaction])
+        BankAPIClient,
+        "fetch_transactions",
+        return_value=iter([transaction]),
     )
-    mocker.patch.object(reconciliation, "_fetch_invoices", return_value=iter([invoice]))
+    mocker.patch(
+        "reconciliation.engine.extract_invoice_data", return_value=iter([invoice])
+    )
+    reconciliation = Reconciliation()
 
     report = reconciliation.generate_report()
 
@@ -110,11 +114,15 @@ def test_generate_report_matching_logic(mocker, transaction, invoice):
     ],
 )
 def test_generate_report_matching_logic_no_match(mocker, transaction, invoice):
-    reconciliation = Reconciliation()
     mocker.patch.object(
-        reconciliation, "_fetch_bank_transactions", return_value=iter([transaction])
+        BankAPIClient,
+        "fetch_transactions",
+        return_value=iter([transaction]),
     )
-    mocker.patch.object(reconciliation, "_fetch_invoices", return_value=iter([invoice]))
+    mocker.patch(
+        "reconciliation.engine.extract_invoice_data", return_value=iter([invoice])
+    )
+    reconciliation = Reconciliation()
 
     report = reconciliation.generate_report()
 
